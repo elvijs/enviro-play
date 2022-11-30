@@ -1,34 +1,36 @@
 REQUIREMENTS="requirements.txt"
 SOURCE_DIR="src"
+SCRIPTS_DIR="scripts"
 TESTS_DIR="tests"
+ALL_CODE_DIRS=$(SOURCE_DIR) $(SCRIPTS_DIR) $(TESTS_DIR)
 
 
 format: black isort
 
 black:
-	black $(SOURCE_DIR) $(TESTS_DIR)
+	black $(ALL_CODE_DIRS)
 
 isort:
-	isort $(SOURCE_DIR) $(TESTS_DIR)
+	isort $(ALL_CODE_DIRS)
 
 
 check_format: check_black check_isort
 
 check_black:
-	black --check $(SOURCE_DIR) $(TESTS_DIR)
+	black --check $(ALL_CODE_DIRS)
 
 check_isort:
-	isort --diff $(SOURCE_DIR) $(TESTS_DIR)
+	isort --diff $(ALL_CODE_DIRS)
 
 
 static_checks: mypy flake8
 
 
 mypy:
-	mypy --ignore-missing-imports $(SOURCE_DIR) $(TESTS_DIR)
+	mypy --ignore-missing-imports $(ALL_CODE_DIRS)
 
 flake8:
-	flake8 $(SOURCE_DIR) $(TESTS_DIR)
+	flake8 $(ALL_CODE_DIRS)
 
 
 test: test_code
@@ -46,3 +48,9 @@ install_deps:
 
 install: install_deps
 	pip install -e .
+
+
+# RaspberryPi stuff
+
+initial_raspi_setup:
+	curl -sSL https://get.pimoroni.com/enviroplus | bash
