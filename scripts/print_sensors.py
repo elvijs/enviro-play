@@ -6,12 +6,11 @@ https://github.com/pimoroni/enviroplus-python/blob/master/examples/all-in-one-en
 """
 import sys
 import time
-
-from ltr559 import LTR559
 from subprocess import PIPE, Popen
 
 from bme280 import bme280
 from enviroplus import gas
+from ltr559 import LTR559
 
 
 # Get the temperature of the CPU for compensation
@@ -20,7 +19,7 @@ def get_cpu_temperature():
         ["vcgencmd", "measure_temp"], stdout=PIPE, universal_newlines=True
     )
     output, _error = process.communicate()
-    return float(output[output.index("=") + 1 : output.rindex("'")])
+    return float(output[output.index("=") + 1 : output.rindex("'")])  # noqa
 
 
 if __name__ == "__main__":
@@ -31,8 +30,8 @@ if __name__ == "__main__":
     cpu_temps = [get_cpu_temperature()] * 5
 
     delay = 0.5  # Debounce the proximity tap
-    mode = 0  # The starting mode
-    last_page = 0
+    mode: int = 0  # The starting mode
+    last_page: float = 0
     light = 1
 
     # Create a values dict to store the data
