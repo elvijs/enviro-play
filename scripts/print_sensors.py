@@ -29,6 +29,8 @@ def set_up_bme280() -> None:
 
 
 if __name__ == "__main__":
+    set_up_bme280()
+
     # Tuning factor for compensation. Decrease this number to adjust the
     # temperature down, and increase to adjust up
     factor = 2.25
