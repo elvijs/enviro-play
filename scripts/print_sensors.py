@@ -8,7 +8,7 @@ import sys
 import time
 from subprocess import PIPE, Popen
 
-from bme280 import bme280
+from bme280 import bme280, bme280_i2c
 from enviroplus import gas
 from ltr559 import LTR559
 
@@ -20,6 +20,12 @@ def get_cpu_temperature():
     )
     output, _error = process.communicate()
     return float(output[output.index("=") + 1 : output.rindex("'")])  # noqa
+
+
+def set_up_bme280() -> None:
+    # values taken from the bme280 package, main script
+    bme280_i2c.set_default_i2c_address(118)
+    bme280_i2c.set_default_bus(1)
 
 
 if __name__ == "__main__":
