@@ -24,10 +24,11 @@ def get_cpu_temperature():
 
 
 def set_up_bme280() -> None:
-    # values taken from the bme280 package, main script
-    setup()
-    bme280_i2c.set_default_i2c_address(118)
+    # See this readme for how to find your magic values
+    # https://github.com/kbrownlees/bme280
+    bme280_i2c.set_default_i2c_address(int(0x76))
     bme280_i2c.set_default_bus(1)
+    setup()
 
 
 if __name__ == "__main__":

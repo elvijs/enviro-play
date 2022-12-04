@@ -8,3 +8,4 @@ This repo is a playground for the Enviro+ sensors.
 * [Enviro+](https://shop.pimoroni.com/products/enviro?variant=31155658457171). 
   Includes sensor datasheets and 
   [this reference tutorial](https://learn.pimoroni.com/article/getting-started-with-enviro-plus).
+  - [BME280 package](https://pypi.org/project/bme280/)
