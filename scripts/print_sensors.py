@@ -5,6 +5,7 @@ Adapted from
 https://github.com/pimoroni/enviroplus-python/blob/master/examples/all-in-one-enviro-mini.py
 """
 import sys
+import time
 from dataclasses import dataclass
 from datetime import datetime
 from subprocess import PIPE, Popen
@@ -46,10 +47,12 @@ class Measurements:
 if __name__ == "__main__":
     set_up_bme280()
     ltr559 = LTR559()
+    sampling_rate_hz = 1.
 
     # The main loop
     try:
         while True:
+            st = time.time()
             measurements = Measurements(
                 timestamp=datetime.utcnow(),
                 cpu_temperature=get_cpu_temperature(),
@@ -60,6 +63,10 @@ if __name__ == "__main__":
                 proximity=ltr559.get_proximity(),
             )
             print(measurements)
+            et = time.time()
+            time_to_take_sample = et - st
+            if time_to_take_sample < 1/sampling_rate_hz:
+                time.sleep(1/sampling_rate_hz - time_to_take_sample)
 
     # Exit cleanly
     except KeyboardInterrupt:
