@@ -35,6 +35,7 @@ def set_up_bme280() -> None:
 @dataclass
 class Measurements:
     """A single mesaurement."""
+
     timestamp: datetime
     cpu_temperature: float  # unit: Celsius
     sensor_temperature: float  # unit: Celsius
@@ -47,7 +48,7 @@ class Measurements:
 if __name__ == "__main__":
     set_up_bme280()
     ltr559 = LTR559()
-    sampling_rate_hz = 1.
+    sampling_rate_hz = 1.0
 
     # The main loop
     try:
@@ -65,8 +66,8 @@ if __name__ == "__main__":
             print(measurements)
             et = time.time()
             time_to_take_sample = et - st
-            if time_to_take_sample < 1/sampling_rate_hz:
-                time.sleep(1/sampling_rate_hz - time_to_take_sample)
+            if time_to_take_sample < 1 / sampling_rate_hz:
+                time.sleep(1 / sampling_rate_hz - time_to_take_sample)
 
     # Exit cleanly
     except KeyboardInterrupt:
